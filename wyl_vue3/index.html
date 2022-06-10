@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wyl_vue3</title>
+    <style>
+        .wyl {
+            color: red;
+        }
+        .www {
+            color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="./renderer.js"></script>
+    <script src="./reactive.js"></script>
+    <script src="./index.js"></script>
+    <script>
+        const App = {
+            data: reactive({
+                name: 'wyl',
+                age: 18
+            }),
+            render() {
+                return h('div', null, [
+                    h('h2', null, `name: ${this.data.name}, age: ${this.data.age}`),
+                    h('button', {onClick: () => {
+                        this.data.age--
+                    }}, '-1')
+                ])
+            }
+        }
+
+        createApp(App).mount('#app')
+    </script>
+</body>
+</html>
