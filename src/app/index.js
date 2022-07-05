@@ -1,11 +1,12 @@
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
-const loginRouter = require('../router/index')
+const useRouters = require('../router')
 
 const app = new Koa()
 
+// 动态注册路由
 app.use(bodyParser())
-app.use(loginRouter.routes())
-app.use(loginRouter.allowedMethods())
+useRouters(app)
+
 
 module.exports = app

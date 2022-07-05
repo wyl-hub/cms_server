@@ -7,6 +7,7 @@ class Login {
     // 登陆 校验账号密码是否正确
     async login(ctx, next) {
         const user = ctx.request.body
+        console.log('user', user)
         const result = await loginService.checkAccount(user)
         // 如果有结果 代表账号密码正确
         if (result.length > 0) {
