@@ -1,10 +1,10 @@
 const connection = require('../app/database')
 
 class Customer {
-    async getList(user) {
-        const { name, password } = user
-        const statement = `SELECT * FROM users WHERE name = ? AND password = ?`
-        const result = await connection.execute(statement, [name, password])
+    async getList(data) {
+        const { size, offset } = data
+        const statement = `SELECT * FROM customers LIMIT ? OFFSET ?;`
+        const result = await connection.execute(statement, [size, offset])
         return result[0]
     }
 }

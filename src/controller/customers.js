@@ -1,10 +1,14 @@
 const { throwError } = require('../utils/error')
-
+const customersService = require('../service/customers')
 class Customer {
-    getList(ctx, next) {
+    async getList(ctx, next) {
         const data = ctx.request.body
-        console.log('data', data)
-        ctx.body = 'success'
+        const result = await customersService.getList(data)
+        const total = result.length
+        ctx.body = {
+            total,
+            list: result
+        }
     }
 }
 
