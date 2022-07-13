@@ -1,6 +1,12 @@
 const path = require('path')
 const fs = require('fs')
 const args = process.argv
+
+
+const homeDir = require('os').homedir();
+const desktopDir = `${homeDir}\\Desktop`;
+
+
 /**
  * 使用方式 
  * node index.js 项目在本地路径  新建组件路劲(eg: /main/test/test)
@@ -10,9 +16,12 @@ const args = process.argv
 
 // 此脚本 针对 wyl vue3-ts-cms
 // 如果上传命令 直接在项目中使用  但是 本地文件 需要传入项目路径
-const projectPath = args[2]
+
+const projectPath = path.join(desktopDir, args[2])
 const viewPathList = args[3].split('/')
 viewPathList.shift()
+
+
 
 // 创建组件
 function work() {
