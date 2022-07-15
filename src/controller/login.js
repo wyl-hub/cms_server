@@ -38,6 +38,49 @@ class Login {
         }
         await next()
     }
+
+    async getMenus(ctx, next) {
+        const result = await loginService.getMenus()
+        const menus = result.filter(item => !item.parentId).map(item => ({
+            id: item.id,
+            title: item.title,
+            icon: item.icon,
+            type: item.type,
+            url: item.url
+        }))
+        const childrenMenus = result.filter(item => item.parentId)
+        childrenMenus.forEach(item => {
+            const pId = item.parentId
+            let parentItem = null
+            menus.some(p => {
+                if (p.id === pId) {
+                    parentItem = p
+                    return true
+                }
+            })
+            if (parentItem) {
+                if (parentItem.children) {
+                    parentItem.children.push({
+                        id: item.id,
+                        title: item.title,
+                        icon: item.icon,
+                        type: item.type,
+                        url: item.url
+                    })
+                } else {
+                    parentItem.children = [{
+                        id: item.id,
+                        title: item.title,
+                        icon: item.icon,
+                        type: item.type,
+                        url: item.url
+                    }]
+                }
+            }
+        })
+        ctx.menus = menus
+        next()
+    }
 }
 
 module.exports = new Login()

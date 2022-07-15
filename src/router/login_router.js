@@ -41,8 +41,9 @@ loginRouter.post('/getMenu', ctx => {
     ctx.body = menuList
 })
 
-loginRouter.post('/verifyToken', loginController.verifyToken, ctx => {
+loginRouter.post('/verifyToken', loginController.verifyToken, loginController.getMenus, ctx => {
     const user = ctx.user
+    const menuList = ctx.menus
     const userInfo = {
         name: user.name,
         role: 'system'

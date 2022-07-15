@@ -7,6 +7,12 @@ class Login {
         const result = await connection.execute(statement, [name, password])
         return result[0]
     }
+
+    async getMenus() {
+        const statement = `SELECT * FROM menus`
+        const result = await connection.execute(statement)
+        return result[0]
+    }
 }
 
 module.exports = new Login()
