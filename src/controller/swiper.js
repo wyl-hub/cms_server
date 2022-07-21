@@ -37,6 +37,18 @@ class Swiper {
         await swiperService.save(data)
         ctx.body = 'success'
     }
+
+    async getInfo(ctx) {
+        const { id } = ctx.request.body
+        const result = await swiperService.getInfo(id)
+        ctx.body = result[0]
+    }
+
+    async delete(ctx) {
+        const { id } = ctx.request.body
+        await swiperService.delete(id)
+        ctx.body = 'success'
+    }
 }
 
 module.exports = new Swiper()

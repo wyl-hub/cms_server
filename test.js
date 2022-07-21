@@ -1,21 +1,21 @@
-var isValid = function(s) {
-    if (s.length % 2 !== 0) return false
-    const leftArr = []
-    for (let i = 0; i < s.length; ++i) {
-        if (s[i] === '(' || s[i] === '[' || s[i] === '{') leftArr.push(s[i])
-        else {
-            const corr = leftArr[leftArr.length - 1]
-            console.log(s[i])
-            console.log(corr)
-            if (!corr) return false
-            if (corr === '(' && s[i] !== ')') return false
-            if (corr === '[' && s[i] !== ']') return false
-            if (corr === '{' && s[i] !== '}') return false
-            leftArr.pop()
+function test(grid, k) {
+    const m = grid.length
+    const n = grid[0].length
+    while(k > 0) {
+        const end = grid[m - 1][n - 1]
+        for (let i = 0; i < m; ++i) {
+            if (i === 0) grid[i].unshift(end)
+            else grid[i].unshift(grid[i -1][n])
         }
-    }
-    if (leftArr.length > 0) return false
-    return true
-};
 
-console.log(isValid('))'))
+        for (let i = 0; i < m; ++i) {
+            grid[i].pop()
+        }
+        k--
+    }
+    console.log(grid)
+}
+
+const arr = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+
+test(arr, 1)

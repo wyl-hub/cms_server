@@ -20,6 +20,18 @@ class Swiper {
         const result = await connection.execute(statement, [name, seq, url])
         return result[0]
     }
+
+    async getInfo(id) {
+        const statement = `SELECT * FROM swipers WHERE id = ?;`
+        const result = await connection.execute(statement, [id])
+        return result[0]
+    }
+
+    async delete(id) {
+        const statement = `DELETE FROM swipers WHERE id = ?;`
+        const result = await connection.execute(statement, [id])
+        return result[0]
+    }
 }
 
 module.exports = new Swiper()
