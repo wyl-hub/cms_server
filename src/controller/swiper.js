@@ -5,7 +5,12 @@ class Swiper {
     async getList(ctx) {
         const data = ctx.request.body
         const result = await swiperService.getList(data)
-        ctx.body = result
+        const totalRes = await swiperService.getTotal()
+        const { total } = totalRes
+        ctx.body = {
+            list: result,
+            total
+        }
     }
 
     async getSeqList(ctx) {
@@ -29,12 +34,14 @@ class Swiper {
 
     async save(ctx) {
         const data = ctx.request.body
-        const { name, url } = data
+        const { id, name, url } = data
         if (!name || !url) {
-            throwError(500, '名称和图片不能为空', ctx)
+            throwError(500, '标题和图片不能为空', ctx)
             return
         }
-        await swiperService.save(data)
+
+        if (!id) await swiperService.save(data)
+        else await swiperService.update(data)
         ctx.body = 'success'
     }
 
